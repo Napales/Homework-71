@@ -1,0 +1,20 @@
+<div class="post bg-white border rounded col-12 col-md-6 mb-4">
+    <div class="post-header py-3 px-4 d-flex align-items-center">
+        <img class="post-avatar rounded-circle me-3" src="{{ post.author.avatar.url }}" alt="User Avatar">
+        <span class="post-username font-weight-bold"><a href="{% url 'accounts:profile' post.author.pk %}">
+                        {{ post.author.username }}</a>
+                    </span>
+    </div>
+    <img class="post-image img-fluid" src="{{ post.image.url }}" alt="Post Image">
+    <div class="post-actions py-2 px-4">
+        <span class="post-like-btn me-2"><i class="bi bi-heart"></i></span>
+        <span class="post-like-btn me-2"><i class="bi bi-heart-fill"></i></span>
+        <span class="post-likes font-weight-bold">0</span>
+        <span class="post-comment-btn me-2"><i class="bi bi-chat-dots-fill"></i></span>
+    </div>
+    <div class="post-description px-4 py-3">
+        <p>{{ post.content }}</p>
+    </div>
+    <div class="post-timestamp px-4 py-2 text-muted">{{ post.created_at }}</div>
+
+</div>

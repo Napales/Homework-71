@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block link %}
+
+{% endblock %}
+
+
+{% block content %}
+    <div class="profile-header">
+        <img class="profile-avatar img-fluid" src="{{ user_obj.avatar.url }}" alt="User Avatar">
+        <div class="profile-username">{{ user_obj.username }}</div>
+        <div class="profile-bio">{{ user_obj.description }}</div>
+        <div class="profile-stats">
+            <div class="profile-stat-item">
+                <span class="profile-stat-value">0</span> posts
+            </div>
+            <div class="profile-stat-item">
+                <span class="profile-stat-value">0</span> followers
+            </div>
+            <div class="profile-stat-item">
+                <span class="profile-stat-value">0</span> following
+            </div>
+        </div>
+    </div>
+    <div class="profile-posts mt-5">
+        <div class="row">
+            {% for post in user_obj.posts.all %}
+                <div class="col-md-3">
+                    <a href="{% url "webapp:post_view" post.pk %}">
+                        <img class="post-thumbnail img-fluid" src="{{ post.image.url }}"
+                             alt="{{ post.image.filename }}">
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}

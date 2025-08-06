@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block link %}
+    {% if request.user == post.author %}
+        <li class="nav-item">
+            <a href="{% url "webapp:post_update" post.pk %}" class="nav-link">Редактирование</a>
+        </li>
+        <li class="nav-item">
+            <a href="{% url "webapp:post_delete" post.pk %}" class="nav-link">Удаление</a>
+        </li>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    {% include "partial/post_view_partial.html" %}
+
+{% endblock %}

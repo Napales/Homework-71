@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block link %}
+    {% if request.user.is_authenticated %}
+        <li class="nav-item">
+            <a class="nav-link" href="{% url "webapp:post_add" %}">Создание поста</a>
+        </li>
+    {% endif %}
+{% endblock %}
+
+{% block content %}
+    <br>
+    <div class="row">
+        {% for post in posts %}
+            {% include "partial/post_view_partial.html" %}
+        {% empty %}
+            <h2>Нет постов</h2>
+        {% endfor %}
+    </div>
+    {% if is_paginated %}
+        {% include 'partial/pagination.html' %}
+    {% endif %}
+{% endblock %}

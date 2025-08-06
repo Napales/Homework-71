@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h3>Вы уверены что хотите удалить продукт этот пост?</h3>
+    <form action="" method="post">
+        {% csrf_token %}
+        <button>Да</button>
+    </form>
+    <a href="{% url "webapp:post_view" post.pk %} ">Нет</a>
+{% endblock %}
