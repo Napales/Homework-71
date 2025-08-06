@@ -14,7 +14,7 @@ class PostsListView(ListView):
     model = Post
     template_name = "posts/posts_list.html"
     context_object_name = "posts"
-    paginate_by = 3
+    paginate_by = 5
     ordering = ("-created_at",)
 
     def get_queryset(self):
@@ -34,17 +34,20 @@ class PostUpdateView(PermissionRequiredMixin, UpdateView):
     model = Post
     form_class = PostForm
     template_name = "posts/post_update.html"
+    permission_required = 'webapp.change_post'
 
     def has_permission(self):
-        return self.request.user == self.get_object().author
+        return super().has_permission() or self.request.user == self.get_object().author
 
 
 class PostDeleteView(PermissionRequiredMixin, DeleteView):
     model = Post
     template_name = "posts/post_delete.html"
+    # permission_required = 'webapp.delete_post'
 
     def has_permission(self):
-        return self.request.user == self.get_object().author
+        return self.request.user.has_perm('webapp.delete_post') or self.request.user == self.get_object().author
+
 
     def get_success_url(self):
         return reverse("accounts:profile", kwargs={"pk": self.request.user.pk})
@@ -53,3 +56,15 @@ class PostDeleteView(PermissionRequiredMixin, DeleteView):
 class PostDetailView(DetailView):
     queryset = Post.objects.all()
     template_name = "posts/post_view.html"
+
+
+class LikePostView(LoginRequiredMixin, View):
+
+    def get(self, request, pk, *args, **kwargs):
+        post = get_object_or_404(Post, pk=pk)
+        if request.user in post.like_users.all():
+            post.like_users.remove(request.user)
+        else:
+            post.like_users.add(request.user)
+            self.request.GET.get("next")
+        return HttpResponseRedirect(self.request.GET.get("next", reverse("webapp:posts_list")))

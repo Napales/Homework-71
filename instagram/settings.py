@@ -65,6 +65,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'webapp.utils.context_processors.get_search_form'
             ],
         },
     },
@@ -122,6 +123,8 @@ LOGOUT_REDIRECT_URL = "webapp:posts_list"
 
 MEDIA_ROOT = Path.joinpath(BASE_DIR, 'uploads')
 MEDIA_URL = '/media/'
+
+AUTHENTICATION_BACKENDS = ['accounts.backends.EmailBackend']
 
 
 # Static files (CSS, JavaScript, Images)

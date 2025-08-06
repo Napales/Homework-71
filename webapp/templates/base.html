@@ -25,7 +25,10 @@
 
                 {% block link %}
                 {% endblock %}
-            
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url "accounts:users" %}">Пользователи</a>
+                </li>
+
                 {% if request.user.is_authenticated %}
                     <li class="nav-item">
                         <form action="{% url 'accounts:logout' %}?next={{ request.get_full_path }}" method="post">
@@ -34,7 +37,7 @@
                         </form>
                     </li>
                     <li class="nav-item">
-                        <p>Здравствуйте <a
+                        <p class="nav-link">Здравствуйте <a
                                 href="{% url "accounts:profile" request.user.pk %}">{{ request.user.username }} </a></p>
                     </li>
                 {% else %}
@@ -45,6 +48,10 @@
                         <a class="nav-link" href="{% url "accounts:login" %}?next={{ request.path }}">Вход</a>
                     </li>
                 {% endif %}
+                <form class="d-flex" action="{% url 'accounts:users' %}" method="get">
+                    {{ search_form.search }}
+                    <button class="btn btn-outline-success">Search</button>
+                </form>
             </ul>
         </div>
     </div>

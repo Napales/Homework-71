@@ -1,10 +1,12 @@
 from django import forms
+from django.forms import widgets
 
 from webapp.models import Post
 
 
 class SearchForm(forms.Form):
-    search = forms.CharField(max_length=30, required=False, label="Найти")
+    search = forms.CharField(max_length=30, required=False, label="Найти",
+                             widget=widgets.Input(attrs={'class': 'form-control'}))
 
 
 class PostForm(forms.ModelForm):

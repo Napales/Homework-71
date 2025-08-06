@@ -11,15 +11,24 @@
         <div class="profile-bio">{{ user_obj.description }}</div>
         <div class="profile-stats">
             <div class="profile-stat-item">
-                <span class="profile-stat-value">0</span> posts
+                <span class="profile-stat-value">{{ user_obj.posts.count }}</span> posts
             </div>
             <div class="profile-stat-item">
-                <span class="profile-stat-value">0</span> followers
+                <span class="profile-stat-value">{{ user_obj.followers.count }}</span> followers
             </div>
             <div class="profile-stat-item">
-                <span class="profile-stat-value">0</span> following
+                <span class="profile-stat-value">{{ user_obj.following.count }}</span> following
             </div>
         </div>
+        {% if request.user.is_authenticated and request.user != user_obj %}
+            <a href="{% url 'accounts:follower'  user_obj.pk %}">
+                {% if  request.user not in user_obj.followers.all %}
+                    Подписаться
+                {% else %}
+                    Отписаться
+                {% endif %}
+            </a>
+        {% endif %}
     </div>
     <div class="profile-posts mt-5">
         <div class="row">

@@ -1,17 +1,19 @@
 {% extends "base.html" %}
 
 {% block link %}
-    {% if request.user == post.author %}
+    {% if request.user == post.author or perms.webapp.change_post %}
         <li class="nav-item">
             <a href="{% url "webapp:post_update" post.pk %}" class="nav-link">Редактирование</a>
         </li>
+    {% endif %}
+    {% if request.user == post.author or perms.webapp.delete_post %}
         <li class="nav-item">
             <a href="{% url "webapp:post_delete" post.pk %}" class="nav-link">Удаление</a>
         </li>
     {% endif %}
+
 {% endblock %}
 
 {% block content %}
     {% include "partial/post_view_partial.html" %}
-
 {% endblock %}

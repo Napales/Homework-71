@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% for user in users %}
+        <a href="{% url 'accounts:profile' user.pk %}">
+            <div class="user-card">
+                <img src="{{ user.avatar.url }}" width="50" height="50" alt="">
+                <p>{{ user.username }}</p>
+            </div>
+        </a>
+    {% endfor %}
+{% endblock %}

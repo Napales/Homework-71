@@ -15,6 +15,7 @@ class Post(CreateUpdateAbstractModel):
     image = models.ImageField(upload_to="posts", verbose_name='Картинка')
     content = models.TextField(max_length=2000, verbose_name="Контент")
     author = models.ForeignKey(get_user_model(), on_delete=models.CASCADE, related_name="posts", verbose_name="Автор")
+    like_users = models.ManyToManyField(get_user_model(), related_name='like_posts', verbose_name="Лайки")
 
     def __str__(self):
         return f"{self.pk} {self.author}"
