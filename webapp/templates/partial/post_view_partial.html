@@ -15,8 +15,8 @@
                     <span class="post-like-btn me-2"><i class="bi bi-heart-fill"></i></span>
                 {% endif %}
             </a>
+            <span class="post-likes font-weight-bold">{{ post.like_users.count }}</span>
         {% endif %}
-        <span class="post-likes font-weight-bold">{{ post.like_users.count }}</span>
 {#        <span class="post-comment-btn me-2"><i class="bi bi-chat-dots-fill"></i></span>#}
     </div>
     <div class="post-description px-4 py-3">
